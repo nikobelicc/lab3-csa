@@ -1,5 +1,7 @@
 from enum import Enum
 
+USER_INPUT_ADDR = 0x0
+USER_OUTPUT_ADDR = 0x1
 
 class Opcode(Enum):
     ADD = 'add'

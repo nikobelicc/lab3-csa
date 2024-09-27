@@ -4,7 +4,8 @@ import sys
 
 from isa import Opcode
 from isa import name2opcode
-
+from isa import USER_INPUT_ADDR
+from isa import USER_OUTPUT_ADDR
 
 class DataPath:
 

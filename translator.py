@@ -3,6 +3,8 @@ import re
 import json
 import sys
 from isa import Opcode
+from isa import USER_INPUT_ADDR
+from isa import USER_OUTPUT_ADDR
 
 var_map = {}
 var_type_map = {}

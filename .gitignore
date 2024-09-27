@@ -1,12 +1,8 @@
-/.gitlab-ci.yml
+/.github-ci.yml
 /.pytest_cache
-/golden
 /images
 /input.lsp
-/integration_test.py
 /output.asm
 /pytest.ini
 /README.md
-/unit_machine_alu_test.py
-/unit_translate_test.py
 /__pycache__
