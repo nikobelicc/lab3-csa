@@ -1,28 +1,45 @@
 name: CI
 
-on: [push]
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
 
 jobs:
-  test:
+  lab3-csa:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Check commit
-      uses: actions/checkout@v4
+      # Шаг 1: Checkout репозитория
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
-    - name: Set up Python
-      uses: actions/setup-python@v4
-      with:
-        python-version: 3.12
+      # Шаг 2: Установить Python
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'  # Укажите нужную версию Python
 
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install coverage pytest
-        pip install pytest-update-goldens
-        # pip install pycodestyle pylint
+      # Шаг 3: Установить зависимости
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip
+          pip install pycodestyle coverage pylint pytest
+          # pip install pytest-update-goldens  # Если требуется
 
-    - name: Run tests with coverage
-      run: |
-        coverage run -m pytest --verbose --update-goldens
-        coverage report
+      # Шаг 4: Запустить тесты с покрытием
+      - name: Run tests with coverage
+        run: |
+          coverage run -m pytest --verbose # --update-goldens
+          coverage report
+
+      # Шаг 5: Проверка стиля кода с pycodestyle
+      - name: Run pycodestyle
+        run: |
+          find . -type f -name "*.py" | xargs pycodestyle --ignore=E501,E125
+
+      # Шаг 6: Анализ кода с pylint
+      - name: Run pylint
+        run: |
+          find . -type f -name "*.py" | xargs pylint --disable C0114,C0116,W0603,R0912,R0915,C0115,R0801,C0103,R0902,W1203,C0209,R0913
