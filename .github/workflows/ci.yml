@@ -22,10 +22,10 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install coverage pytest
+          pip install coverage pytest pytest-golden
 
       - name: Run tests with coverage
         run: |
-          coverage run -m pytest --verbose --update-goldens
+          coverage run -m pytest --verbose
           find . -type f -name "*.py" | xargs -t coverage report
 
