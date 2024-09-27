@@ -91,15 +91,6 @@
 
 - Непосредственная загрузка: операндом является константа, подаваемая как один из аргументов.
 
-```
-    +-----------------+
-    |                 |
-    |      data       |
-    |                 |
-    |                 |
-    +-----------------+
-```
-
 
 ## Система команд
 
@@ -204,7 +195,10 @@
 
 Реализовано в модуле: [machine](./machine.py).
 
+### Схема DataPath и ControlUnit
 
+![/images/scheme.png](/images/control_unit.png "Схема ControlUnit") 
+![/images/scheme.png](/images/data_path.png "Схема DataPath") 
 
 ## DataPath
 
