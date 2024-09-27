@@ -225,7 +225,7 @@ class ControlUnit:
         return "{} {}".format(state, action)
 
 
-def simulation(code, input_buffer, program_memory_size, data_memory_size, data_stack_size, limit):
+def simulation(code, input_buffer, program_memory_size, data_memory_size, data_stack_size, limit): # pylint: disable=too-many-positional-arguments
 
     data_path = DataPath(data_memory_size, data_stack_size, input_buffer)
     control_unit = ControlUnit(code, program_memory_size, data_path)
