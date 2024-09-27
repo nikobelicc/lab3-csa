@@ -1,7 +1,7 @@
 from enum import Enum
 
-USER_INPUT_ADDR = 0x0
-USER_OUTPUT_ADDR = 0x1
+INPUT_PORT = 0x0
+OUTPUT_PORT = 0x1
 
 class Opcode(Enum):
     ADD = 'add'
@@ -20,8 +20,6 @@ class Opcode(Enum):
     BGT = 'bgt'
     LD = 'ld'
     GT = 'gt'
-    IN = 'in'
-    OUT = 'out'
     HLT = 'hlt'
 
 
@@ -43,6 +41,4 @@ name2opcode = {
     'hlt': Opcode.HLT,
     'push': Opcode.PUSH,
     'pop': Opcode.POP,
-    'in': Opcode.IN,
-    'out': Opcode.OUT,
 }

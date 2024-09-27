@@ -3,8 +3,8 @@ import re
 import json
 import sys
 from isa import Opcode
-from isa import USER_INPUT_ADDR
-from isa import USER_OUTPUT_ADDR
+from isa import INPUT_PORT
+from isa import OUTPUT_PORT
 
 var_map = {}
 var_type_map = {}
@@ -54,7 +54,7 @@ def read_tokens(tokens: str) -> list:
         lst = []
         while tokens[0] != ')':
             lst.append(read_tokens(tokens))
-        tokens.pop(0)  # проигнорировать ')'
+        tokens.pop(0)
         return lst
     if token == ')':
         raise SyntaxError("unexpected )")
@@ -147,12 +147,6 @@ def _parse_for_define(arg: str | int | list[str | int | list]) -> list[str | int
     if isinstance(arg, int):
         return arg
     if isinstance(arg, str):
-        # if (arg[0] == '\'' and arg[-1] == '\'') or (arg[0] == '"' and arg[-1] == '"'):
-        #     str_len = len(arg) - 2
-        #     out = [str_len]
-        #     for i in range(1, len(arg) - 1):
-        #         out.append(arg[i])
-        #     return out
         if (arg[0] == '\'' and arg[-1] == '\'') or (arg[0] == '"' and arg[-1] == '"'):
             out = []
             for i in range(1, len(arg) - 1):
@@ -320,7 +314,7 @@ def process(program: list[str | int | list] | int | str):
         ))
         code.append(create_opcode(
             opcode=Opcode.PUSH,
-            arg=USER_INPUT_ADDR
+            arg=INPUT_PORT
         ))
         code.append(create_opcode(opcode=Opcode.GT))
         code.append(create_opcode(opcode=Opcode.LD))
@@ -333,7 +327,7 @@ def process(program: list[str | int | list] | int | str):
         if isinstance(program[1], int):
             code.append(create_opcode(
                 opcode=Opcode.PUSH,
-                arg=USER_OUTPUT_ADDR
+                arg=OUTPUT_PORT
             ))
             code.append(create_opcode(
                 opcode=Opcode.PUSH,
@@ -353,7 +347,7 @@ def process(program: list[str | int | list] | int | str):
                 for addr in range(start_addr, end_addr):
                     code.append(create_opcode(
                         opcode=Opcode.PUSH,
-                        arg=USER_OUTPUT_ADDR
+                        arg=OUTPUT_PORT
                     ))
                     code.append(create_opcode(
                         opcode=Opcode.PUSH,
@@ -367,7 +361,7 @@ def process(program: list[str | int | list] | int | str):
             # Переменная является числом
                 code.append(create_opcode(
                     opcode=Opcode.PUSH,
-                    arg=USER_OUTPUT_ADDR
+                    arg=OUTPUT_PORT
                 ))
                 code.append(create_opcode(
                     opcode=Opcode.PUSH,
@@ -381,7 +375,7 @@ def process(program: list[str | int | list] | int | str):
         else:
             code.append(create_opcode(
                 opcode=Opcode.PUSH,
-                arg=USER_OUTPUT_ADDR
+                arg=OUTPUT_PORT
             ))
             process(program[1])
             code.append(create_opcode(opcode=Opcode.LD))

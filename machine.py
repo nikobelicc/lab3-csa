@@ -4,8 +4,8 @@ import sys
 
 from isa import Opcode
 from isa import name2opcode
-from isa import USER_INPUT_ADDR
-from isa import USER_OUTPUT_ADDR
+from isa import INPUT_PORT
+from isa import OUTPUT_PORT
 
 class DataPath:
 
@@ -50,16 +50,16 @@ class DataPath:
             assert -2 ** 31 < val < 2 ** 31 - 1, "val overflow in stack"
             self.stack[self.stack_pointer] = val
         else:
-            if self.data_address == USER_INPUT_ADDR and len(self.input_buffer) != 0:
+            if self.data_address == INPUT_PORT and len(self.input_buffer) != 0:
                 self.data[self.data_address] = ord(self.input_buffer.pop())
-            elif self.data_address == USER_INPUT_ADDR:
+            elif self.data_address == INPUT_PORT:
                 raise EOFError
             self.stack[self.stack_pointer] = self.data[self.data_address]
 
     def pop(self):
         top_of_stack_val = self.__top_of_stack_value(0)
         self.data[self.data_address] = top_of_stack_val
-        if self.data_address == USER_OUTPUT_ADDR:
+        if self.data_address == OUTPUT_PORT:
             self.output_buffer.append(top_of_stack_val)
 
     def input_from_port(self, port_number: int):
@@ -185,19 +185,6 @@ class ControlUnit:
             self.data_path.latch_data_address(0)
             self.tick()
             self.data_path.push()
-            self.latch_programm_cnter()
-            self.tick()
-        elif opcode == Opcode.IN:
-            port_number = arg
-            self.data_path.latch_stack_pointer(1)
-            self.tick()
-            self.data_path.input_from_port(port_number)
-            self.latch_programm_cnter()
-            self.tick()
-        elif opcode == Opcode.OUT:
-            port_number = arg
-            self.data_path.output_to_port(port_number)
-            self.data_path.latch_stack_pointer(-1)
             self.latch_programm_cnter()
             self.tick()
 
