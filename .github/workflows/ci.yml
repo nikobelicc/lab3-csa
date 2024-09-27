@@ -25,7 +25,7 @@ jobs:
       - name: Install dependencies
         run: |
           pip install --upgrade pip
-          pip install pycodestyle coverage pylint pytest
+          pip install pycodestyle coverage pylint pytest-goldie
           pip install pytest-goldie
           pip install pytest
 
