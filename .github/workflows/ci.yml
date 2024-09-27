@@ -19,14 +19,14 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.10'  # Укажите нужную версию Python
+          python-version: '3.10'
 
       # Шаг 3: Установить зависимости
       - name: Install dependencies
         run: |
           pip install --upgrade pip
           pip install pycodestyle coverage pylint pytest
-          # pip install pytest-update-goldens
+          pip install pytest-goldie
           pip install pytest
 
       # Шаг 4: Запустить тесты с покрытием
