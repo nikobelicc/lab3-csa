@@ -26,7 +26,8 @@ jobs:
         run: |
           pip install --upgrade pip
           pip install pycodestyle coverage pylint pytest
-          # pip install pytest-update-goldens  # Если требуется
+          pip install pytest-update-goldens
+          pip install pytest
 
       # Шаг 4: Запустить тесты с покрытием
       - name: Run tests with coverage
