@@ -194,7 +194,7 @@ def process(program: list[str | int | list] | int | str):
             code.append(create_opcode(opcode=Opcode.POP))
             code.append(create_opcode(opcode=Opcode.POP))
             data_ptr += 1
-        
+
         else:
             code.pop()
             var_type_map[program[1]] = VarType.STRING
@@ -336,14 +336,13 @@ def process(program: list[str | int | list] | int | str):
             code.append(create_opcode(opcode=Opcode.LD))
             code.append(create_opcode(opcode=Opcode.POP))
             code.append(create_opcode(opcode=Opcode.POP))
-        
+
         elif isinstance(program[1], str):
             assert program[1] in var_map, "write name must be set"
             if var_type_map.get(program[1]) == VarType.STRING:
                 start_addr = var_map[program[1]]
                 end_addr = var_string_len_map[program[1]]
-                
-            
+
                 for addr in range(start_addr, end_addr):
                     code.append(create_opcode(
                         opcode=Opcode.PUSH,
@@ -358,7 +357,7 @@ def process(program: list[str | int | list] | int | str):
                     code.append(create_opcode(opcode=Opcode.POP))
                     code.append(create_opcode(opcode=Opcode.POP))
             else:
-            # Переменная является числом
+                # Переменная является числом
                 code.append(create_opcode(
                     opcode=Opcode.PUSH,
                     arg=OUTPUT_PORT
@@ -371,7 +370,7 @@ def process(program: list[str | int | list] | int | str):
                 code.append(create_opcode(opcode=Opcode.LD))
                 code.append(create_opcode(opcode=Opcode.POP))
                 code.append(create_opcode(opcode=Opcode.POP))
-            
+
         else:
             code.append(create_opcode(
                 opcode=Opcode.PUSH,

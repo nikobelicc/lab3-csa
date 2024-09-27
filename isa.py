@@ -3,6 +3,7 @@ from enum import Enum
 INPUT_PORT = 0x0
 OUTPUT_PORT = 0x1
 
+
 class Opcode(Enum):
     ADD = 'add'
     SUB = 'sub'
