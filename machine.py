@@ -7,6 +7,7 @@ from isa import name2opcode
 from isa import INPUT_PORT
 from isa import OUTPUT_PORT
 
+
 class DataPath:
 
     def __init__(self, data_size, stack_size, input_buffer: list[str]) -> None:
