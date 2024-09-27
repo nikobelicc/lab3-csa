@@ -28,4 +28,25 @@ jobs:
         run: |
           coverage run -m pytest --verbose --update-goldens
           find . -type f -name "*.py" | xargs -t coverage report
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install linters
+        run: |
+          pip install pycodestyle pylint
+
+      - name: Run pycodestyle
+        run: |
+          find . -type f -name "*.py" | xargs -t pycodestyle --ignore=E501,E125
+
+      - name: Run pylint
+        run: |
+          find . -type f -name "*.py" | xargs -t pylint --disable C0114,C0116,W0603,R0912,R0915,C0115,R0801,C0103,R0902,W1203,C0209,R0913
