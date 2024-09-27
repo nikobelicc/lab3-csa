@@ -1,4 +1,3 @@
-/.github-ci.yml
 /.pytest_cache
 /images
 /input.lsp
