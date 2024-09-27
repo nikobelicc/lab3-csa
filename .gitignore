@@ -1,5 +1,4 @@
 /.pytest_cache
-/images
 /input.lsp
 /output.asm
 /__pycache__
